@@ -1,4 +1,4 @@
-
+this class contains the following functions regarding polynomes
 valuate polynomial: f(poly, x)
 Find root (recursive): root_rec(p, x1, x2, eps)
 Create polynomial from 1–3 points: PolynomFromPoints(xx, yy)
