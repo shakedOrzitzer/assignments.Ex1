@@ -313,8 +313,8 @@ class Ex1Test {
     }
     @Test
     public void testGetAFromMonom1() {
-        String s="5x^2";
-        int expected=5;
+        String s="-2.8x^2";
+        double expected=-2.8;
         assertEquals(expected,Ex1.getAFromMonom(s));
     }
 

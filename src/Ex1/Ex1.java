@@ -240,12 +240,25 @@ public class Ex1 {
 	 */
 	public static double[] getPolynomFromString(String p) {
 		double [] ans = ZERO;//  -1.0x^2 +3.0x +2.0, "-1.2x^3 +3.1x^2 +2.0"
-        //p.replaceAll("\\s+", "");
         String[] p2= p.split(" ");
-        double[] poly = new double[p2.length];
-        for (int i=poly.length-1;i>=0;i-=1) {
-            if(getBFromMonom(p2[i])==i){
-                poly[i]=getAFromMonom(p2[i]);
+        int len=p2.length;
+        int bigPow= getBFromMonom(p2[0]);
+        String[] revP2= new String[bigPow+1];
+        for(int i=p2.length-1;i>=0;i--){
+            if(getBFromMonom(p2[i]) ==i){}
+                revP2[i]=p2[i];
+        }
+        double[] poly = new double[revP2.length];
+        for (int i=revP2.length-1;i>=0;i-=1) {
+            if(getBFromMonom(revP2[i])==i){
+                poly[i]=getAFromMonom(revP2[i]);
+            }
+            int run=p2.length-1;
+            for(int i=0;i<revP2.length;i+=1){
+                if( getBFromMonom(p2[run])==i){
+                    poly[i]=getAFromMonom(p2[run]);
+                }
+                else{poly[i]=0}
             }
         }
 		return poly;
@@ -388,14 +401,12 @@ public class Ex1 {
     /**
      * function checks if input in a number
      */
-    public static int stringToNumber (String s) {
+    public static Double stringToNumber (String s) {
         int ans= -1;
         try{
-            String[] n= s.split("\\.");
-            parseInt(n[0]);
-            return parseInt(n[0]);}
+            return parseDouble(s);}
         catch (NumberFormatException e) {
-            return -1;
+            return -1.0;
         }
     }
 
@@ -408,9 +419,8 @@ public class Ex1 {
         double ans= -1;
         if (stringToNumber(monom)>=0) return stringToNumber(monom);
         String[] n= monom.split("x");
-        if(stringToNumber(n[0])>=0)
-            return stringToNumber(n[0]);
-        return ans;
+        return stringToNumber(n[0]);
+
         }
 
     /**
@@ -418,15 +428,15 @@ public class Ex1 {
      */
     public static int getBFromMonom (String monom) {
         monom= monom.substring(1);
-        int b= stringToNumber(monom);
+        double b= stringToNumber(monom);
         if (b>=0) return 0;
         else { // monom ax^b
             String[]n=monom.split("\\^");
-                if(stringToNumber(n[1])!=-1){return stringToNumber(n[1]);}
+                if(stringToNumber(n[1])!=-1){return parseInt(n[1]);}
 
         }
 
-        return b;
+        return parseInt(monom);
     }
 
     /**
