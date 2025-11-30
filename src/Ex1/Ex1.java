@@ -177,9 +177,47 @@ public class Ex1 {
 	 */
 	public static double area(double[] p1,double[]p2, double x1, double x2, int numberOfTrapezoid) {
 		double ans = 0;
-        /** add you code below
+        if(x1<0&&x2>=0){
+            if(numberOfTrapezoid<=1) {numberOfTrapezoid=2;}
+            double len= Math.abs(x1);
+            double base1=0,base2=0,temp=0,xi=0,nextX=0,trapezoidArea=0;
+            for(double i=x1;i<0;i+=len) {
+                xi=i;
+                nextX=xi+len;
+                if (i == 0) {
+                    nextX = 0;
+                }
+                base1 = Math.abs(f(p1,xi) - f(p2,xi));
+                base2 = Math.abs(f(p1,nextX) - f(p2,nextX));
+                trapezoidArea=((base1+base2) * len)/2;
+                ans+=trapezoidArea;
+            }
+            for(double i=0;i<=x2-len;i+=len) {
+                xi=i;
+                nextX=xi+len;
+                if (i == x2) {
+                    nextX = x2;
+                }
+                base1 = Math.abs(f(p1,xi) - f(p2,xi));
+                base2 = Math.abs(f(p1,nextX) - f(p2,nextX));
+                trapezoidArea=((base1+base2) * len)/2;
+                ans+=trapezoidArea;
+            }
 
-         /////////////////// */
+            return ans;}
+        double len= (x2-x1)/ numberOfTrapezoid;
+        double base1=0,base2=0,temp=0,xi=0,nextX=0,trapezoidArea=0;
+        for(double i=0;i<numberOfTrapezoid;i+=1) {
+            xi=x1 +(len*i);
+            nextX=xi+len;
+            if (i == numberOfTrapezoid - 1) {
+                nextX = x2;
+            }
+            base1 = Math.abs(f(p1,xi) - f(p2,xi));
+            base2 = Math.abs(f(p1,nextX) - f(p2,nextX));
+            trapezoidArea=((base1+base2) * len)/2;
+            ans+=trapezoidArea;
+        }
 		return ans;
 	}
 	/**
